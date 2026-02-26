@@ -1,13 +1,16 @@
+from app_config import BOARD_ORIGIN, CELL_SIZE
+
+
 def get_cell_lines(cell_pos):
     """Returns the 4 lines surrounding a cell as (top, right, bottom, left)"""
     i, j = cell_pos
-    base_x = 150 + j * 100
-    base_y = 150 + i * 100
+    base_x = BOARD_ORIGIN + j * CELL_SIZE
+    base_y = BOARD_ORIGIN + i * CELL_SIZE
     
-    top = ((base_x, base_y), (base_x + 100, base_y))
-    right = ((base_x + 100, base_y), (base_x + 100, base_y + 100))
-    bottom = ((base_x, base_y + 100), (base_x + 100, base_y + 100))
-    left = ((base_x, base_y), (base_x, base_y + 100))
+    top = ((base_x, base_y), (base_x + CELL_SIZE, base_y))
+    right = ((base_x + CELL_SIZE, base_y), (base_x + CELL_SIZE, base_y + CELL_SIZE))
+    bottom = ((base_x, base_y + CELL_SIZE), (base_x + CELL_SIZE, base_y + CELL_SIZE))
+    left = ((base_x, base_y), (base_x, base_y + CELL_SIZE))
     
     return top, right, bottom, left
 

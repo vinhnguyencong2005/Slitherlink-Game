@@ -8,7 +8,22 @@ example_clues_1 = [
     [None, 2, 0, 2, 1],
     [None, 3, 3, 3, None],
 ]
-
+'''
+example_clues_1 = [
+    [None, 3, None, 2, 0],
+    [None, None, 2, None, 2],
+    [3, 2, 2, None, 3],
+    [2, None, None, None, 3],
+    [None, None, None, None, None],
+]
+example_clues_1 = [
+    [ 3, 2, 2, 1, None],
+    [2, 2, None, 2, 3],
+    [3, 2, 2, 0, 3],
+    [2, None, None, None, None],
+    [None, None, None, 1, None],
+]
+'''
 solution_1 = {
     get_cell_lines((0,0))[0]: True,  # top line of cell (0,0)
     get_cell_lines((0,0))[3]: True,  # left line of cell (0,0)

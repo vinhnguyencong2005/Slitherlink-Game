@@ -22,6 +22,9 @@ from board_utils import (
     get_clicked_line,
 )
 
+import time
+import tracemalloc
+
 
 
 lines = {} # Store line states: key = (start, end), value = False (empty), True (drawn), 'X' (marked invalid)
@@ -125,13 +128,29 @@ while running:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_s:
+                    tracemalloc.start()
+                    start_time = time.perf_counter()
+
                     result = run_solver(selected_algorithm, cells)
+
+                    end_time = time.perf_counter()
+                    current, peak = tracemalloc.get_traced_memory()
+                    tracemalloc.stop()
+
+                    runtime = end_time - start_time
+                    memory = peak / 1024 / 1024  # MB
                     solver_steps = result.get("steps", [])
                     solver_step_index = 0
                     solver_autoplay = False
                     reset_board(lines)
                     label = ALGORITHM_LABELS.get(selected_algorithm, f"Algorithm {selected_algorithm}")
-                    print(f"{label} finished. solved={result.get('solved', False)} total_steps={len(solver_steps)}")
+                    print(
+                        f"{label:<10} | "
+                        f"solved={str(result.get('solved', False)):<5} | "
+                        f"steps={len(solver_steps):>5} | "
+                        f"time={runtime:>10.6f}s | "
+                        f"memory={memory:>7.2f} MB"
+                    )
                     if "message" in result:
                         print(result["message"])
 
